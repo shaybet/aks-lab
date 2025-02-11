@@ -6,10 +6,12 @@ spec:
   selector:
     app: nginx
   ports:
-    - protocol: TCP
+    - name: http
+      protocol: TCP
       port: 80
       targetPort: 80
-    - protocol: TCP
-      port: 9113
-      targetPort: 9113 # Prometheus exporter port
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 443
   type: LoadBalancer  # Exposes Nginx to the outside world
