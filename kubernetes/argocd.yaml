@@ -1,0 +1,42 @@
+# Create the argocd namespace (if it doesn't exist)
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: argocd
+---
+# ArgoCD server deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-server
+  namespace: argocd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: argocd
+  template:
+    metadata:
+      labels:
+        app: argocd
+    spec:
+      containers:
+      - name: argocd-server
+        image: argoproj/argocd:v2.1.0
+        ports:
+        - containerPort: 8080
+---
+# ArgoCD server service
+apiVersion: v1
+kind: Service
+metadata:
+  name: argocd-server
+  namespace: argocd
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    app: argocd
+  type: LoadBalancer
+---
