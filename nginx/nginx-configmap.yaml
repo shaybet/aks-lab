@@ -9,3 +9,13 @@ data:
         <h1>Welcome to Azure AKS!</h1>
       </body>
     </html>
+  nginx.conf: |
+    server {
+        listen 80;
+        server_name localhost;
+
+        location / {
+            root /usr/share/nginx/html;
+            index index.html index.htm;
+        }
+    }
