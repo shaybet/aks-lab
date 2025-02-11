@@ -9,4 +9,7 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
+    - protocol: TCP
+      port: 9113
+      targetPort: 9113 # Prometheus exporter port
   type: LoadBalancer  # Exposes Nginx to the outside world
