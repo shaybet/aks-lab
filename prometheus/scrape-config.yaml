@@ -1,5 +1,0 @@
-scrapeConfigs:
-  - job_name: 'nginx'
-    metrics_path: '/metrics'
-    static_configs:
-      - targets: ['nginx-service:9113']
