@@ -1,0 +1,16 @@
+alertmanager:
+  enabled: true
+  alertmanagerSpec:
+    replicas: 1
+    service:
+      type: LoadBalancer
+
+server:
+  global:
+    scrape_interval: 15s
+  route:
+    receiver: 'default'
+  receivers:
+    - name: 'default'
+      email_configs:
+        - to: 'youremail@example.com'  # Add your email here

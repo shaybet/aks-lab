@@ -6,12 +6,10 @@ spec:
   selector:
     app: nginx
   ports:
-    - name: http
-      protocol: TCP
+    - protocol: TCP
       port: 80
       targetPort: 80
-    - name: https
-      protocol: TCP
-      port: 443
-      targetPort: 443
-  type: LoadBalancer  # Exposes Nginx to the outside world
+    - protocol: TCP
+      port: 9113
+      targetPort: 9113
+  type: LoadBalancer

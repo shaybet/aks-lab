@@ -16,20 +16,10 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:latest  # Using the latest official Nginx image from Docker Hub
+        image: nginx:latest
         ports:
         - containerPort: 80
-        volumeMounts:
-        - name: nginx-config-volume
-          mountPath: /usr/share/nginx/html/index.html  # Mount index.html to this location
-          subPath: index.html  # This makes the ConfigMap data accessible as a file
       - name: nginx-prometheus-exporter
-        image: nginx/nginx-prometheus-exporter:latest  # Nginx Prometheus Exporter
+        image: nginx/nginx-prometheus-exporter:latest
         ports:
-        - containerPort: 9113  # Default metrics port for Prometheus Nginx Exporter
-        args:
-          - "-nginx.scrape-uri=http://localhost:8080/stub_status"
-      volumes:
-      - name: nginx-config-volume
-        configMap:
-          name: nginx-config  # Reference the ConfigMap created above
+        - containerPort: 9113  # This port exposes metrics
