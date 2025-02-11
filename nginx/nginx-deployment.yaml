@@ -34,23 +34,3 @@ spec:
       - name: nginx-config-volume
         configMap:
           name: nginx-config  # Reference the ConfigMap created above
-
-
-
-
-
-    spec:
-      containers:
-        - name: nginx
-          image: nginx:latest
-          ports:
-            - containerPort: 80
-          volumeMounts:
-            - name: nginx-config-volume
-              mountPath: /usr/share/nginx/html/index.html
-              subPath: index.html
-
-      volumes:
-        - name: nginx-config-volume
-          configMap:
-            name: nginx-config
