@@ -82,7 +82,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/your-repo/nginx-k8s'
+    repoURL: 'https://github.com/shaybet/aks-lab.git/nginx'
     targetRevision: HEAD
     path: manifests
   destination:
