@@ -23,13 +23,19 @@ spec:
         - name: nginx-config-volume
           mountPath: /usr/share/nginx/html/index.html  # Mount index.html to this location
           subPath: index.html  # This makes the ConfigMap data accessible as a file
-        - name: nginx-exporter
-          image: nginx/nginx-prometheus-exporter:latest
-          ports:
-            - containerPort: 9113
-          env:
-            - name: NGINX_SERVER
-              value: "http://localhost:80"  # Nginx server to monitor
+      - name: nginx-prometheus-exporter
+        image: nginx/nginx-prometheus-exporter:latest  # Nginx Prometheus Exporter
+        ports:
+        - containerPort: 9113  # Default metrics port for Prometheus Nginx Exporter
+        env:
+        - name: NGINX_SERVER
+          value: "nginx:80"  # The location of your Nginx server
+        - name: NGINX_VHOSTS
+          value: "default.conf"  # Nginx configuration file
+        volumeMounts:
+        - name: nginx-config-volume
+          mountPath: /etc/nginx/nginx.conf  # Nginx config file
+          subPath: nginx.conf
       volumes:
       - name: nginx-config-volume
         configMap:
