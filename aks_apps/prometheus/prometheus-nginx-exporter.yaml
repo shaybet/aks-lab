@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-prometheus-exporter
+  namespace: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-prometheus-exporter
+  template:
+    metadata:
+      labels:
+        app: nginx-prometheus-exporter
+    spec:
+      containers:
+      - name: nginx-prometheus-exporter
+        image: nginx/nginx-prometheus-exporter:latest
+        ports:
+        - containerPort: 9113
+        env:
+        - name: NGINX_HOST
+          value: "nginx-service"  # Replace with your Nginx service name
+        - name: NGINX_PORT
+          value: "80"  # Replace with your Nginx port
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-prometheus-exporter
+  namespace: nginx
+spec:
+  ports:
+    - port: 9113
+      targetPort: 9113
+  selector:
+    app: nginx-prometheus-exporter

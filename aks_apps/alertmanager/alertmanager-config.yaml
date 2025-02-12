@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alertmanager-kube-prometheus-alertmanager
+  namespace: monitoring
+data:
+  alertmanager.yml: |
+    global:
+      resolve_timeout: 5m
+    route:
+      group_by: ['alertname']
+      group_wait: 30s
+      group_interval: 5m
+      repeat_interval: 3h
+      receiver: 'console'
+    receivers:
+      - name: 'console'
+        webhook_configs:
+          - url: 'http://localhost:9094/alert'
+    # For logging to console:
+    # Alertmanager’s logging is typically shown in the pod logs, which can be seen via kubectl logs
+    # But the following setting can make the Alertmanager log more details to the console
+    log_level: debug

@@ -21,12 +21,6 @@ spec:
         volumeMounts:
         - name: nginx-index-page
           mountPath: /usr/share/nginx/html
-      - name: nginx-exporter
-        image: nginx/nginx-prometheus-exporter:latest
-        args:
-          - '-nginx.scrape-uri=http://localhost:80/stub_status'
-        ports:
-        - containerPort: 9113
       volumes:
       - name: nginx-index-page
         configMap:

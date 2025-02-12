@@ -1,17 +1,15 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: nginx-monitor
+  name: nginx-prometheus-exporter
   namespace: monitoring
-  labels:
-    release: prometheus
 spec:
   selector:
     matchLabels:
-      app: nginx
+      app: nginx-prometheus-exporter
   namespaceSelector:
     matchNames:
-    - nginx
+      - nginx
   endpoints:
-  - port: metrics
-    interval: 30s
+  - port: "9113"  # The port the Nginx exporter exposes
+    interval: 15s
