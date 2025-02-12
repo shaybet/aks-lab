@@ -1,0 +1,14 @@
+server:
+  files:
+    alerts: |
+      groups:
+      - name: nginx-high-cpu
+        rules:
+        - alert: HighCPUNginx
+          expr: sum(rate(container_cpu_usage_seconds_total{namespace="nginx"}[1m])) by (pod) > 0.0001
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: "High CPU usage in Nginx pod"
+            description: "Nginx pod {{ $labels.pod }} is using more than 5% CPU for 1 minutes."

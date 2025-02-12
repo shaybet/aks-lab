@@ -1,9 +1,0 @@
-alertmanager:
-  alertmanagerSpec:
-    replicas: 1
-    resources:
-      requests:
-        memory: "200Mi"
-        cpu: "200m"
-    service:
-      type: LoadBalancer
